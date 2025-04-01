@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>メモリ階層ビジュアライザー</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/script.js"></script>
+  </head>
+  <body>
+    <h1>メモリ階層ビジュアライザー</h1>
+    <p class="description">
+      各メモリ階層に対応する電子が、CPUエリアとの間を永続的に往復し続けます。電子の往復速度がアクセス速度を表します。<br />
+      電子は各エリアの境界線で折り返します。スライダーで全体の時間スケール（アニメーション速度）をリアルタイムに変更できます。<br />
+    </p>
+
+    <div id="controls">
+      <label for="speedSlider">時間スケール調整 (対数スケール):</label>
+      <input type="range" id="speedSlider" min="1" max="100" value="${INITIAL_SLIDER_VALUE}" step="1" />
+      <span id="sliderValue">現在のスケール: 0.01x</span>
+    </div>
+    <div id="realism-control" style="margin-bottom: 10px">
+      <input type="checkbox" id="realisticSpeedCheckbox" />
+      <label for="realisticSpeedCheckbox">現実の速度比率で表示 (注意: 差が非常に大きいです)</label>
+    </div>
+
+    <div id="container">
+      <div id="visualization" style="height: calc(100vh - 240px)">
+        <div id="cpu-area">CPU<br />+<br />Registers</div>
+        <div id="components-area">
+          <div class="component" id="l1">
+            L1 Cache
+            <span class="speed-info"></span>
+          </div>
+          <div class="component" id="l2">
+            L2 Cache
+            <span class="speed-info"></span>
+          </div>
+          <div class="component" id="l3">
+            L3 Cache
+            <span class="speed-info"></span>
+          </div>
+          <div class="component" id="ram">
+            Main Memory (RAM)
+            <span class="speed-info"></span>
+          </div>
+          <div class="component" id="ssd">
+            SSD
+            <span class="speed-info"></span>
+          </div>
+          <div class="component" id="hdd">
+            HDD
+            <span class="speed-info"></span>
+          </div>
+        </div>
+        <!-- Electrons will be added here -->
+      </div>
+    </div>
+
+    <!-- データシート表示用要素 -->
+    <div id="datasheet"></div>
+  </body>
+</html>

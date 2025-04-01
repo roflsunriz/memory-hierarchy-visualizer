@@ -1,0 +1,189 @@
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+h1 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+}
+p.description {
+  text-align: center;
+  max-width: 900px;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 20px;
+}
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+#visualization {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 650px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+#cpu-area {
+  width: 25%;
+  height: 100%;
+  background-color: #ffddd7;
+  border: 2px solid #b22222;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  box-sizing: border-box;
+}
+#components-area {
+  width: 65%;
+  margin-right: 75px; /* speed-infoの右側へのはみ出しを考慮 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+}
+.component {
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 45px;
+  margin: 5px 0;
+  position: relative;
+  align-self: flex-end; /* 右端に寄せる */
+}
+#l1 {
+  background-color: #ffa500;
+  border-color: #cc8400;
+}
+#l2 {
+  background-color: #ffd700;
+  border-color: #cca300;
+}
+#l3 {
+  background-color: #ffff00;
+  border-color: #cccc00;
+  color: #333;
+}
+#ram {
+  background-color: #90ee90;
+  border-color: #008000;
+  color: #333;
+  height: 55px;
+}
+#ssd {
+  background-color: #add8e6;
+  border-color: #0000cd;
+  color: #333;
+  height: 65px;
+}
+#hdd {
+  background-color: #d3d3d3;
+  border-color: #696969;
+  color: #333;
+  height: 65px;
+}
+.electron {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: mediumblue; /* 色変更 */
+  border-radius: 50%;
+  z-index: 50;
+  opacity: 0.9;
+  transform-origin: center center; /* 座標計算の基準 */
+}
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 450px;
+}
+#controls label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+#speedSlider {
+  width: 95%;
+  margin-bottom: 10px;
+}
+#sliderValue {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+}
+.speed-info {
+  position: absolute;
+  right: -85px; /* 少し右に移動して視認性を確保 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0.8;
+  pointer-events: none;
+}
+#datasheet {
+  position: absolute;
+  display: none; /* 初期状態は非表示 */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 100; /* 他の要素より手前に表示 */
+  max-width: 250px;
+  pointer-events: none; /* マウスイベントを透過 */
+}
+#datasheet h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+#datasheet p {
+  margin: 3px 0;
+  color: #555;
+}

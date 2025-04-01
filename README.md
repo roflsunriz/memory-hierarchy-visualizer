@@ -2,6 +2,8 @@
 
 このプロジェクトは、コンピュータのメモリ階層（CPU/レジスタ、L1/L2/L3キャッシュ、RAM、SSD、HDD）間のデータ転送速度の違いを視覚的に表現するビジュアライザーです。
 
+🌐 **[デモを見る](https://roflsunriz.github.io/memory-hierarchy-visualizer/)**
+
 ## 特徴
 
 - 各メモリ階層間のデータ転送を電子の動きで表現

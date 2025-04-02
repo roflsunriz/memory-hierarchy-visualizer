@@ -76,7 +76,11 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!element) return { left: 0, top: 0, width: 0, height: 0 };
     const visRect = visualizationArea.getBoundingClientRect();
     const elemRect = element.getBoundingClientRect();
-    return {
+    
+    // スマホ表示かどうかを判定
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    
+    const bounds = {
       left: elemRect.left - visRect.left,
       top: elemRect.top - visRect.top,
       width: elemRect.width,
@@ -86,6 +90,13 @@ window.addEventListener("DOMContentLoaded", () => {
       centerX: elemRect.left - visRect.left + elemRect.width / 2,
       centerY: elemRect.top - visRect.top + elemRect.height / 2,
     };
+
+    // スマホ表示時のCPU領域の位置調整
+    if (isMobile && element.id === "cpu-area") {
+      bounds.right = bounds.left + bounds.width;
+    }
+
+    return bounds;
   }
 
   /** スライダー値から対数スケール係数を計算 */
@@ -170,7 +181,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // 既存のアニメーションをキャンセル・削除
     if (activeAnimations.has(sourceId)) {
-      activeAnimations.get(sourceId)?.cancel(); // ?. で安全に呼び出し
+      activeAnimations.get(sourceId)?.cancel();
       activeAnimations.delete(sourceId);
     }
     const oldElectron = visualizationArea.querySelector(`.electron[data-component-id="${sourceId}"]`);
@@ -180,9 +191,15 @@ window.addEventListener("DOMContentLoaded", () => {
     const cpuBounds = getElementBoundsInVis(cpuArea);
     const yPos = sourceBounds.centerY - electronWidth / 2;
     const startX = sourceBounds.left - electronWidth / 2;
-    const endX = cpuBounds.right - electronWidth / 2;
+    
+    // スマホ表示時のCPU境界線位置の調整（右端に変更）
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const endX = isMobile 
+      ? cpuBounds.left + cpuBounds.width - electronWidth / 2  // スマホ表示：CPU要素の右端
+      : cpuBounds.right - electronWidth / 2;                  // PC表示：従来通りの位置
+    
     const distanceX = endX - startX;
-    const duration = getAnimationDuration(sourceId); // 内部で吹き出しも更新
+    const duration = getAnimationDuration(sourceId);
 
     const electron = document.createElement("div");
     electron.classList.add("electron");
@@ -199,7 +216,6 @@ window.addEventListener("DOMContentLoaded", () => {
     activeAnimations.set(sourceId, animation);
 
     animation.addEventListener("cancel", () => {
-      // アニメーションがキャンセルされたら要素を消し、Mapからも削除
       electron.remove();
       activeAnimations.delete(sourceId);
     });

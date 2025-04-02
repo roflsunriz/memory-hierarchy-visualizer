@@ -187,3 +187,75 @@ p.description {
   margin: 3px 0;
   color: #555;
 }
+
+/* スマートフォン向けのスタイル */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  p.description {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  #container {
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+
+  #visualization {
+    min-width: 800px;
+    height: 500px !important;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  #cpu-area {
+    width: 160px;
+    position: relative;
+    left: 205px;
+    top: 50%;
+    transform: translateY(-50%);
+    min-height: 120px;
+    font-size: 14px;
+  }
+
+  #components-area {
+    width: calc(100% - 200px);
+    margin-left: 180px;
+    margin-right: 85px;
+  }
+
+  /* スマホ表示時の電子のスタイル */
+  .electron {
+    transform-origin: left center !important; /* 左端を基準に */
+  }
+
+  #controls {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #speedSlider {
+    width: 100%;
+  }
+
+  .speed-info {
+    font-size: 9px;
+    right: -75px;
+  }
+
+  .component {
+    width: 140px;
+    font-size: 11px;
+  }
+}

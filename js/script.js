@@ -112,7 +112,24 @@ window.addEventListener("DOMContentLoaded", () => {
     const componentElement = document.getElementById(componentId);
     if (componentElement) {
       const speedInfoSpan = componentElement.querySelector(".speed-info");
-      if (speedInfoSpan) speedInfoSpan.textContent = text;
+      if (speedInfoSpan) {
+        const isRealistic = realisticSpeedCheckbox.checked;
+        const baseLatency = isRealistic ? realisticLatenciesRatio.l1 : deformedLatencies.l1;
+        const currentLatency = isRealistic ? realisticLatenciesRatio[componentId] : deformedLatencies[componentId];
+        const ratio = (currentLatency / baseLatency).toFixed(1);
+        
+        // L1キャッシュの場合は比率を表示しない
+        const ratioText = componentId === 'l1' ? '' : `(L1比: ${ratio}x)`;
+        
+        // レイテンシ表示を取得
+        const rawLatencyNs = latencies[componentId];
+        const formattedLatency = rawLatencyNs !== undefined ? formatLatency(rawLatencyNs) : "?";
+        
+        // モードに応じたレイテンシ表示
+        const latencyText = isRealistic ? formattedLatency : `${deformedLatencies[componentId]}単位`;
+        
+        speedInfoSpan.textContent = `${latencyText} ${ratioText}`;
+      }
     }
   }
 

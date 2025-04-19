@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>メモリ階層ビジュアライザー</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
   </head>
   <body>
@@ -14,9 +15,22 @@
       電子は各エリアの境界線で折り返します。スライダーで全体の時間スケール（アニメーション速度）をリアルタイムに変更できます。<br />
     </p>
 
+    <!-- 言語切り替えUI -->
+    <div id="language-selector">
+      <label for="lang-select">言語 / Language:</label>
+      <select id="lang-select">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="es">Español</option>
+        <option value="hi">हिंदी</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+
     <div id="controls">
       <label for="speedSlider">時間スケール調整 (対数スケール):</label>
-      <input type="range" id="speedSlider" min="1" max="100" value="${INITIAL_SLIDER_VALUE}" step="1" />
+      <input type="range" id="speedSlider" min="1" max="100" value="50" step="1" />
       <span id="sliderValue">現在のスケール: 0.01x</span>
     </div>
     <div id="realism-control" style="margin-bottom: 10px">
@@ -59,5 +73,24 @@
 
     <!-- データシート表示用要素 -->
     <div id="datasheet"></div>
+
+    <!-- 言語切り替えスクリプト -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const langSelect = document.getElementById('lang-select');
+        
+        // 保存された言語設定があれば選択肢にセット
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && langSelect) {
+          langSelect.value = savedLang;
+        }
+        
+        // 言語選択変更イベント
+        langSelect.addEventListener('change', function() {
+          const selectedLang = this.value;
+          changeLanguage(selectedLang);
+        });
+      });
+    </script>
   </body>
 </html>

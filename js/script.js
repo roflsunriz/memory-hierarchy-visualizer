@@ -130,7 +130,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const ratio = (currentLatency / baseLatency).toFixed(1);
         
         // L1キャッシュの場合は比率を表示しない
-        const ratioText = componentId === 'l1' ? '' : `(L1比: ${ratio}x)`;
+        const ratioText = componentId === 'l1' ? '' : `(${getTranslatedText('l1Ratio')} ${ratio}x)`;
         
         // レイテンシ表示を取得
         const rawLatencyNs = latencies[componentId];
@@ -260,11 +260,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const data = componentData[componentId];
     if (!data || !datasheetDiv) return;
 
+    // 多言語対応
     datasheetDiv.innerHTML = `
         <h4>${data.name}</h4>
-        <p><strong>容量目安:</strong> ${data.size || "N/A"}</p>
-        <p><strong>レイテンシ目安:</strong> ${data.latency || "N/A"}</p>
-        <p><strong>帯域幅目安:</strong> ${data.bandwidth || "N/A"}</p>
+        <p><strong>${getTranslatedText('size')}</strong> ${data.size || "N/A"}</p>
+        <p><strong>${getTranslatedText('latency')}</strong> ${data.latency || "N/A"}</p>
+        <p><strong>${getTranslatedText('bandwidth')}</strong> ${data.bandwidth || "N/A"}</p>
     `;
 
     const offsetX = 15;
@@ -315,7 +316,13 @@ window.addEventListener("DOMContentLoaded", () => {
   function updateSliderDisplay() {
     const currentRawValue = parseFloat(speedSlider.value);
     const currentScale = getLogScaleFactor(currentRawValue);
-    sliderValueDisplay.textContent = `現在のスケール: ${currentScale.toFixed(2)}x`;
+    
+    // 多言語対応
+    if (typeof getTranslatedText === 'function') {
+      sliderValueDisplay.textContent = `${getTranslatedText('currentScale')} ${currentScale.toFixed(2)}x`;
+    } else {
+      sliderValueDisplay.textContent = `現在のスケール: ${currentScale.toFixed(2)}x`;
+    }
   }
 
   /** Visualizationエリアの高さを調整 */
@@ -376,11 +383,19 @@ window.addEventListener("DOMContentLoaded", () => {
     // イベントリスナー設定
     setupEventListeners();
 
+    // 多言語設定の読み込み
+    if (typeof loadPreferredLanguage === 'function') {
+      loadPreferredLanguage();
+    }
+
     // アニメーション開始 (少し遅延させてレイアウト計算を待つ)
     setTimeout(() => {
       initializeOrUpdateAnimations();
     }, 150);
   }
+
+  // グローバルに関数公開（translations.jsから呼び出せるように）
+  window.updateAnimationTimings = updateAnimationTimings;
 
   // 初期化実行
   init();

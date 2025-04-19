@@ -21,6 +21,39 @@ p.description {
   color: #444;
   margin-bottom: 20px;
 }
+
+/* 言語選択UI用スタイル */
+#language-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  background-color: #e8e8e8;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#language-selector label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #444;
+}
+
+#lang-select {
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#lang-select:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
 #container {
   display: flex;
   flex-direction: column;
@@ -202,6 +235,19 @@ p.description {
   p.description {
     font-size: 12px;
     margin-bottom: 15px;
+  }
+  
+  /* 言語選択UIのスマホ表示 */
+  #language-selector {
+    padding: 5px 10px;
+    width: 95%;
+    justify-content: center;
+    font-size: 12px;
+  }
+  
+  #lang-select {
+    padding: 3px 5px;
+    font-size: 12px;
   }
 
   #container {

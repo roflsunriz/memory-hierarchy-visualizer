@@ -19,6 +19,4 @@
 
 ## 技術仕様
 
-- HTML5
-- CSS3
-- JavaScript (バニラ) 
+具体的な手順・構成・知見は [findings.md](<findings.md#readme-3>) に移動しました。着手前に該当条件を確認してください。

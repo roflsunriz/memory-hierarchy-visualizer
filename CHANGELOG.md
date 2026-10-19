@@ -8,6 +8,8 @@
 
 ### Changed
 
+- GitHub Actions の月間利用時間を抑えるため、Dependabot version update を毎週処理から毎月28日（Asia/Tokyo）の月末処理へ変更した。
+
 - 共通指針とプロジェクト固有の実現手段を混同せず再利用できるように、文書の構成・環境・コマンド・調査知見を `findings.md` へ分離し、着手前の全文確認と参照導線を整えた。
 
 
